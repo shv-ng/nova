@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/shv-ng/nova/ansi"
 	"golang.org/x/term"
@@ -21,7 +19,7 @@ func main() {
 
 func run() error {
 
-	c := make(chan os.Signal)
+	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 
 	fd := os.Stdout.Fd()
@@ -31,17 +29,17 @@ func run() error {
 		return err
 	}
 
-	fmt.Println(ansi.EnableAlternativeBuffer)
-	fmt.Println(ansi.DisableReportingFocus)
+	ansi.EnableAltBuf.Exec()
+	ansi.DisableReportingFocus.Exec()
+	ansi.HideCursor.Exec()
 
-	fmt.Println("hello")
-	time.Sleep(time.Second)
-	ansi.MoveDown(5)
-	fmt.Println("hi")
+	ansi.Put("hi", 1, 1)
+	ansi.Put("hello", 5, 15)
 
 	<-c
 
-	fmt.Println(ansi.DisableAlternativeBuffer)
+	ansi.DisableAltBuf.Exec()
+	ansi.ShowCursor.Exec()
 
 	if err := term.Restore(int(fd), state); err != nil {
 		return err

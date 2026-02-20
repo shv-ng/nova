@@ -1,21 +1,34 @@
 package ansi
 
-import "fmt"
-
-const Escape = 27
-
-var (
-	ClearScreen = []byte{Escape, '[', 'H', Escape, '[', 'J'}
-
-	EnableAlternativeBuffer  = "\033[?1049h"
-	DisableAlternativeBuffer = "\033[?1049l"
-
-	DisableReportingFocus = "\033[?1004l"
+import (
+	"fmt"
 )
 
-func MoveUp(step int) {
-	fmt.Printf("\033[%d;A", step)
+type seq string
+
+const (
+	EnableAltBuf  seq = "\033[?1049h"
+	DisableAltBuf seq = "\033[?1049l"
+
+	DisableReportingFocus seq = "\033[?1004l"
+
+	ClearScreen seq = "\033[2J"
+	MoveToHome  seq = "\033[H"
+
+	HideCursor seq = "\033[?25l"
+	ShowCursor seq = "\033[?25h"
+)
+
+func (s seq) Exec() {
+	fmt.Println(s)
 }
-func MoveDown(step int) {
-	fmt.Printf("\033[%d;B", step)
+
+func Move(line, col int) {
+	MoveToHome.Exec()
+	fmt.Printf("\033[%d;%dH", line, col)
+}
+
+func Put(s string, line, col int) {
+	Move(line, col)
+	fmt.Println(s)
 }
