@@ -1,4 +1,4 @@
-package ansi
+package nova
 
 import (
 	"fmt"
@@ -26,9 +26,4 @@ func (s seq) Exec() {
 func Move(line, col int) {
 	MoveToHome.Exec()
 	fmt.Printf("\033[%d;%dH", line, col)
-}
-
-func Put(s string, line, col int) {
-	Move(line, col)
-	fmt.Println(s)
 }
