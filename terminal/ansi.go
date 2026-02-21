@@ -18,6 +18,5 @@ const (
 )
 
 func MoveCursor(line, col int) {
-	fmt.Print(MoveToHome)
 	fmt.Printf("\033[%d;%dH", line, col)
 }

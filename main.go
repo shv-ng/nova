@@ -26,6 +26,9 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	if err := terminal.DisableInputBuf(); err != nil {
+		return err
+	}
 
 	for range 15 {
 		go star(t.Height, t.Width)
@@ -37,13 +40,15 @@ func run() error {
 }
 
 func star(height, width int) {
+
 	for {
 		line := rand.Intn(height) + 1
 		col := rand.Intn(width) + 1
-		sleep := rand.Intn(5) + 2
 
-		nova.PutText(".", line, col)
+		sleep := rand.Intn(3) + 3
+
+		terminal.PutText(".", line, col)
 		time.Sleep(time.Second * time.Duration(sleep))
-		nova.PutText(" ", line, col)
+		terminal.PutText("  ", line, col)
 	}
 }

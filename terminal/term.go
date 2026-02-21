@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"sync"
 
 	"golang.org/x/term"
 )
@@ -47,9 +48,15 @@ func (t *termi) Restore() error {
 	return term.Restore(t.fd, t.state)
 }
 
+var mu sync.Mutex
+
 func PutText(s string, line, col int) {
+	mu.Lock()
+	defer mu.Unlock()
+
 	MoveCursor(line, col)
 	fmt.Printf("%s", s)
+	os.Stdout.Sync()
 }
 
 func DisableInputBuf() error {
