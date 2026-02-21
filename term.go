@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/shv-ng/nova"
 	"golang.org/x/term"
 )
 
@@ -13,7 +12,7 @@ type terminal struct {
 	fd    int
 	state *term.State
 
-	height, width int
+	Height, Width int
 }
 
 func NewTerminal() (*terminal, error) {
@@ -29,28 +28,28 @@ func NewTerminal() (*terminal, error) {
 		return nil, err
 	}
 
-	EnableAltBuf.Exec()
-	DisableReportingFocus.Exec()
-	HideCursor.Exec()
+	fmt.Print(EnableAltBuf)
+	fmt.Print(DisableReportingFocus)
+	fmt.Print(HideCursor)
 
 	return &terminal{
 		fd:     fd,
 		state:  state,
-		height: h,
-		width:  w,
+		Height: h,
+		Width:  w,
 	}, nil
 }
 
 func (t *terminal) Restore() error {
-	nova.DisableAltBuf.Exec()
-	nova.ShowCursor.Exec()
+	fmt.Print(DisableAltBuf)
+	fmt.Print(ShowCursor)
 
 	return term.Restore(t.fd, t.state)
 }
 
 func PutText(s string, line, col int) {
 	MoveCursor(line, col)
-	fmt.Println(s)
+	fmt.Printf("\033[5m%s\033[25", s)
 }
 
 func DisableInputBuf() error {

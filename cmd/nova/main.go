@@ -2,9 +2,11 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/shv-ng/nova"
 )
@@ -25,7 +27,23 @@ func run() error {
 		return err
 	}
 
+	for range 15 {
+		go star(t.Height, t.Width)
+	}
+
 	<-c
 
 	return t.Restore()
+}
+
+func star(height, width int) {
+	for {
+		line := rand.Intn(height) + 1
+		col := rand.Intn(width) + 1
+		sleep := rand.Intn(5) + 2
+
+		nova.PutText(".", line, col)
+		time.Sleep(time.Second * time.Duration(sleep))
+		nova.PutText(" ", line, col)
+	}
 }

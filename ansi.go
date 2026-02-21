@@ -4,26 +4,20 @@ import (
 	"fmt"
 )
 
-type seq string
-
 const (
-	EnableAltBuf  seq = "\033[?1049h"
-	DisableAltBuf seq = "\033[?1049l"
+	EnableAltBuf  = "\033[?1049h"
+	DisableAltBuf = "\033[?1049l"
 
-	DisableReportingFocus seq = "\033[?1004l"
+	DisableReportingFocus = "\033[?1004l"
 
-	ClearScreen seq = "\033[2J"
-	MoveToHome  seq = "\033[H"
+	ClearScreen = "\033[2J"
+	MoveToHome  = "\033[H"
 
-	HideCursor seq = "\033[?25l"
-	ShowCursor seq = "\033[?25h"
+	HideCursor = "\033[?25l"
+	ShowCursor = "\033[?25h"
 )
 
-func (s seq) Exec() {
-	fmt.Println(s)
-}
-
-func Move(line, col int) {
-	MoveToHome.Exec()
+func MoveCursor(line, col int) {
+	fmt.Print(MoveToHome)
 	fmt.Printf("\033[%d;%dH", line, col)
 }
