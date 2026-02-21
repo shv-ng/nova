@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/shv-ng/nova"
+	"github.com/shv-ng/nova/terminal"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func run() error {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 
-	t, err := nova.NewTerminal()
+	t, err := terminal.New()
 	if err != nil {
 		return err
 	}

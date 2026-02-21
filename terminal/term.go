@@ -1,4 +1,4 @@
-package nova
+package terminal
 
 import (
 	"fmt"
@@ -8,14 +8,14 @@ import (
 	"golang.org/x/term"
 )
 
-type terminal struct {
+type termi struct {
 	fd    int
 	state *term.State
 
 	Height, Width int
 }
 
-func NewTerminal() (*terminal, error) {
+func New() (*termi, error) {
 	fd := int(os.Stdout.Fd())
 
 	state, err := term.GetState(fd)
@@ -32,7 +32,7 @@ func NewTerminal() (*terminal, error) {
 	fmt.Print(DisableReportingFocus)
 	fmt.Print(HideCursor)
 
-	return &terminal{
+	return &termi{
 		fd:     fd,
 		state:  state,
 		Height: h,
@@ -40,7 +40,7 @@ func NewTerminal() (*terminal, error) {
 	}, nil
 }
 
-func (t *terminal) Restore() error {
+func (t *termi) Restore() error {
 	fmt.Print(DisableAltBuf)
 	fmt.Print(ShowCursor)
 
@@ -49,7 +49,7 @@ func (t *terminal) Restore() error {
 
 func PutText(s string, line, col int) {
 	MoveCursor(line, col)
-	fmt.Printf("\033[5m%s\033[25", s)
+	fmt.Printf("%s", s)
 }
 
 func DisableInputBuf() error {
