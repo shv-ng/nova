@@ -2,6 +2,7 @@ package terminal
 
 import (
 	"fmt"
+	"strings"
 )
 
 const (
@@ -19,4 +20,16 @@ const (
 
 func MoveCursor(line, col int) {
 	fmt.Printf("\033[%d;%dH", line, col)
+}
+
+func ColorFg(fg string) {
+	if fg == "" {
+		return
+	}
+	new := strings.ReplaceAll(fg, ",", ";")
+	fmt.Printf("\033[38;2;%sm", new)
+}
+
+func ColorReset() {
+	fmt.Print("\033[0m")
 }

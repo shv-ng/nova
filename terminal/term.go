@@ -50,13 +50,18 @@ func (t *termi) Restore() error {
 
 var mu sync.Mutex
 
-func PutText(s string, line, col int) {
+func PutText(s, fg string, line, col int) {
 	mu.Lock()
 	defer mu.Unlock()
 
 	MoveCursor(line, col)
+	ColorFg(fg)
+
 	fmt.Printf("%s", s)
+	ColorReset()
+
 	os.Stdout.Sync()
+
 }
 
 func DisableInputBuf() error {

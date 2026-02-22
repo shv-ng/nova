@@ -6,14 +6,20 @@ Set FontSize 20
 Set Width 1200
 Set Height 600
 
-# Type a command in the terminal.
 Type "nova"
-
-# Pause for dramatic effect...
 Sleep 500ms
-
-# Run the command by pressing enter.
 Enter
-
-# Admire the output for a bit.
 Sleep 5s
+Ctrl+C
+
+Type "nova -count=5 -duration=3"
+Sleep 500ms
+Enter
+Sleep 5s
+Ctrl+C
+
+Type "nova -config=config.py"
+Sleep 500ms
+Enter
+Sleep 5s
+Ctrl+C
