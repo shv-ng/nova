@@ -6,16 +6,10 @@ Set FontSize 20
 Set Width 1200
 Set Height 600
 
-Type "nova"
+Type "nova -count=20 -duration=3 -symbol='.' -color=0,255,255"
 Sleep 500ms
 Enter
-Sleep 5s
-Ctrl+C
-
-Type "nova -count=5 -duration=3"
-Sleep 500ms
-Enter
-Sleep 5s
+Sleep 10s
 Ctrl+C
 
 Type "nova -config=config.py"
@@ -23,3 +17,5 @@ Sleep 500ms
 Enter
 Sleep 5s
 Ctrl+C
+
+
