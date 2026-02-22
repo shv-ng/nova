@@ -14,7 +14,7 @@ A lightweight Go terminal animation that render ANSI-powered starfield
 ## Requirement
 
 - If you want true-color you need to have a terminal emulator that support true-color
-- `stty` must be in your machine, for windows wait for next release.
+- `stty` if you're using linux/mac
 - `python` command won't say `command not found`, if you have `python3` alias it with `python`
 
 ## Installation
@@ -115,7 +115,6 @@ Will add hex color support and alias for color very soon
 ## Future Improvements
 
 - fix every bug/edge cases i know
-- windows support
 - hex color and color support
 - resize window
 - star fading animation

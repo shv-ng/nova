@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"sync"
 
 	"golang.org/x/term"
@@ -65,5 +66,9 @@ func PutText(s, fg string, line, col int) {
 }
 
 func DisableInputBuf() error {
+	if runtime.GOOS == "windows" {
+		// tested on powershell, no affect on pressing key while rendering
+		return nil
+	}
 	return exec.Command("stty", "-F", "/dev/tty", "-echo").Run()
 }
