@@ -22,6 +22,8 @@ OR
 
 ## Usage
 
+### help
+
 ```bash
 $ nova -h
 Usage of nova:
@@ -35,7 +37,15 @@ Usage of nova:
     	time (in s) to fade away a star (default 4)
   -symbol string
     	what to display - the star (default ".")
+
+# inline style
+$ nova -count=20 -duration=3 -symbol='*' -color=0,255,255
+
+# use config file
+$ nova -config=path/to/config.py
 ```
+
+
 
 > [!Note]
 > the `-config` will override other command
@@ -43,9 +53,9 @@ Usage of nova:
 > [!Warning]
 > there is no great error handling/edge cases done yet, use with caution
 
-### config file
+### Config file
 
-- Use this as template, and edit as per your need. It'll evaluated at runtime, so you are allow to do crazy stuffs
+Use this example as template, and edit as per your need. It'll evaluated at runtime, so you are allow to do crazy stuffs
 
 `config.py`
 ```python
