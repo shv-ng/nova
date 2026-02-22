@@ -24,7 +24,10 @@ func run() error {
 
 	countPtr := flag.Int("count", 100, "number of stars to display")
 	durationPtr := flag.Int("duration", 4, "time (in s) to fade away a star")
-	configPtr := flag.String("config", "", "load config file (*.py)")
+	configPtr := flag.String("config", "", "load python based config file")
+	colorPtr := flag.String("color", "200,0,100", "color of all stars")
+	symbolPtr := flag.String("symbol", ".", "what to display - the star")
+
 	flag.Parse()
 
 	c := make(chan os.Signal, 1)
@@ -40,7 +43,8 @@ func run() error {
 		return err
 	}
 
-	if err := startStarts(*configPtr, *countPtr, *durationPtr, t.Height, t.Width); err != nil {
+	if err := startStarts(
+		*configPtr, *colorPtr, *symbolPtr, *countPtr, *durationPtr, t.Height, t.Width); err != nil {
 		return err
 	}
 
@@ -49,7 +53,7 @@ func run() error {
 	return nil
 }
 
-func startStarts(configPtr string, countPtr, durationPtr, height, width int) error {
+func startStarts(configPtr, colorPtr, symbolPtr string, countPtr, durationPtr, height, width int) error {
 	if configPtr != "" {
 		cfg, err := config.Load(configPtr)
 		if err != nil {
@@ -91,7 +95,7 @@ func startStarts(configPtr string, countPtr, durationPtr, height, width int) err
 		durationPtr = 4
 	}
 	for range countPtr {
-		go star(".", "255,255,255", height, width, durationPtr)
+		go star(symbolPtr, colorPtr, height, width, durationPtr)
 	}
 	return nil
 }
