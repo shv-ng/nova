@@ -1,15 +1,18 @@
-# Nova
+# Nova ✨
+
 A lightweight Go terminal animation that render ANSI-powered starfield 
 
 ![demo](demo.gif)
 
 ## Features
+
 - ANSI true-color (24 bit) star rending
 - Alternative buffer
 - Custom star symbol, duration and color
 - Python based configaration
 
 ## Requirement
+
 - If you want true-color you need to have a terminal emulator that support true-color
 - `stty` must be in your machine, for windows wait for next release.
 - `python` command won't say `command not found`, if you have `python3` alias it with `python`
@@ -17,7 +20,9 @@ A lightweight Go terminal animation that render ANSI-powered starfield
 ## Installation
 
 - If go already install `go install github.com/shv-ng/nova`
+
 OR
+
 - Download binary from [releases](https://github.com/shv-ng/nova/releases) 
 
 ## Usage
@@ -45,7 +50,7 @@ $ nova -count=20 -duration=3 -symbol='*' -color=0,255,255
 $ nova -config=path/to/config.py
 ```
 
-
+to close, hit universal killer `Ctrl-c`
 
 > [!Note]
 > the `-config` will override other command
@@ -58,6 +63,7 @@ $ nova -config=path/to/config.py
 Use this example as template, and edit as per your need. It'll evaluated at runtime, so you are allow to do crazy stuffs
 
 `config.py`
+
 ```python
 from dataclasses import dataclass
 
@@ -96,6 +102,7 @@ BG_COLOR: str = ""  # it wont work
 ### Color format
 
 As of now, I didn't wrote parser and great edge case handling for colors, it'll assume you wrote correct color code.
+
 ```bash
 # some color examples
     "255,255,255"   # White
@@ -106,6 +113,7 @@ As of now, I didn't wrote parser and great edge case handling for colors, it'll 
 Will add hex color support and alias for color very soon
 
 ## Future Improvements
+
 - fix every bug/edge cases i know
 - windows support
 - hex color and color support
@@ -114,4 +122,5 @@ Will add hex color support and alias for color very soon
 - moving star animation
 
 ## LICENSE
+
 Yeah, It's [MIT](LICENSE)
